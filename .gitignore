@@ -1,3 +1,6 @@
 *.rds
 *.fst
 *.qs
+*.gpkg
+.Rproj.user
+.DS_Store

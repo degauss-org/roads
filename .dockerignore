@@ -3,5 +3,6 @@
 
 # except what we need
 !/renv.lock
-!/schwartz_grid_lookup.R
-!/schwartz_grid_geohashed.rds
+!/_roadway_distance_and_length.R
+!/roads1100_sp_5072.rds
+!/roads1200_sp_5072.rds

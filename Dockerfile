@@ -17,9 +17,10 @@ RUN apt-get update \
 COPY renv.lock .
 RUN R --quiet -e "renv::restore()"
 
-COPY geomarker_name.rds .
-COPY geomarker_name.R .
+COPY roads1100_sp_5072.rds .
+COPY roads1200_sp_5072.rds .
+COPY _roadway_distance_and_length.R .
 
 WORKDIR /tmp
 
-ENTRYPOINT ["/app/geomarker_name.R"]
+ENTRYPOINT ["/app/_roadway_distance_and_length.R"]
