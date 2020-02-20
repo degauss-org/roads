@@ -2,8 +2,8 @@
 
 > DeGAUSS container that calculates distance to nearest roadway and length of roadways within buffer for S1100 and S1200 roadways for PEPR multi-site study
 
-[![Docker Build Status](https://img.shields.io/docker/build/degauss/geomarker_name)](https://hub.docker.com/repository/docker/degauss/geomarker_name/tags)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/geomarker_name)](https://github.com/degauss-org/geomarker_name/releases)
+[![Docker Build Status](https://img.shields.io/docker/build/degauss/roads)](https://hub.docker.com/repository/docker/degauss/roads/tags)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
 
 ## DeGAUSS example call
 
