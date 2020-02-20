@@ -1,9 +1,9 @@
 # degauss/roads <a href='https://degauss-org.github.io/DeGAUSS/'><img src='DeGAUSS_hex.png' align="right" height="138.5" /></a>
 
-> DeGAUSS container that calculates distance to nearest roadway and length of roadways within buffer for S1100 and S1200 roadways for PEPR multi-site study
+> DeGAUSS container that calculates proximity and length of nearby major roadways
 
-[![Docker Build Status](https://img.shields.io/docker/build/degauss/geomarker_name)](https://hub.docker.com/repository/docker/degauss/geomarker_name/tags)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/geomarker_name)](https://github.com/degauss-org/geomarker_name/releases)
+[![Docker Build Status](https://img.shields.io/docker/build/degauss/roads)](https://hub.docker.com/repository/docker/degauss/roads/tags)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
 
 ## DeGAUSS example call
 
@@ -19,7 +19,7 @@ docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv --
 
 ## geomarker methods
 
-## Primary (S1100) and Secondary (S1200) Roadways
+### Primary (S1100) and Secondary (S1200) Roadways
 
 The U.S. Census Bureau defines primary (S1100) roadways as "generally divided, limited-access highways within the Federal interstate highway system or under state management" and "distinguished by the presence of interchanges and are accessible by ramps and may include some toll highways". The map below shows all features defined as "S1100" in the MAF/TIGER database. 
 
