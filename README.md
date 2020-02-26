@@ -17,6 +17,13 @@ Optionally, change the default buffer radius:
 docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv --buffer_radius 500
 ```
 
+4 new columns will be added:
+
+* `dist_to_1100`
+* `dist_to_1200`
+* `length_1100`
+* `length_1200`
+
 ## geomarker methods
 
 ### Primary (S1100) and Secondary (S1200) Roadways
@@ -27,7 +34,7 @@ The U.S. Census Bureau defines primary (S1100) roadways as "generally divided, l
 
 Secondary (S1200) roads are described as "main arteries, usually in the U.S. highway, state highway, or county highway system" and "have one or more lanes of traffic in each direction, may or may not be divided, and usually have at-grade intersections with many other roads and driveways".
 
-This container returns the distance to the nearest primary road and the distance to the nearest secondary road for each geocoded address, as well as the total length of primary roads and the total length of secondary roads within a buffer (defaults to 400 m) around each address. 
+This container returns the distance to the nearest primary road and the distance to the nearest secondary road for each geocoded address, as well as the length of primary roads and the total length of secondary roads within a buffer (defaults to 400 m) around each address. 
 
 ## geomarker data
 
