@@ -3,7 +3,7 @@
 > DeGAUSS container that calculates proximity and length of nearby major roadways
 
 [![Docker Build Status](https://img.shields.io/docker/automated/degauss/roads)](https://hub.docker.com/repository/docker/degauss/roads/tags)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
+[![GitHub Latest Tag](https://img.shields.io/github/v/tag/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
 
 ## DeGAUSS example call
 
