@@ -11,7 +11,7 @@
 docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv 
 ```
 
-Optionally, change the default buffer radius:
+Optionally, change the default (400 m) buffer radius:
 
 ```sh
 docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv --buffer_radius 500
