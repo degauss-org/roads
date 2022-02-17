@@ -1,53 +1,54 @@
-# degauss/roads <a href='https://degauss-org.github.io/DeGAUSS/'><img src='DeGAUSS_hex.png' align="right" height="138.5" /></a>
+# roads <a href='https://degauss.org'><img src='https://github.com/degauss-org/degauss_hex_logo/raw/main/PNG/degauss_hex.png' align='right' height='138.5' /></a>
 
-> DeGAUSS container that calculates proximity and length of nearby major roadways
+[![](https://img.shields.io/github/v/release/degauss-org/roads?color=469FC2&label=version&sort=semver)](https://github.com/degauss-org/roads/releases)
+[![container build status](https://github.com/degauss-org/roads/workflows/build-deploy-release/badge.svg)](https://github.com/degauss-org/roads/actions/workflows/build-deploy-release.yaml)
 
-[![Docker Build Status](https://img.shields.io/docker/automated/degauss/roads)](https://hub.docker.com/repository/docker/degauss/roads/tags)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
+## Using
 
-## DeGAUSS example call
-
-```sh
-docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv 
-```
-
-Optionally, change the default buffer radius:
+If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon`, then the [DeGAUSS command](https://degauss.org/using_degauss.html#DeGAUSS_Commands):
 
 ```sh
-docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv --buffer_radius 500
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.0 my_address_file_geocoded.csv
 ```
 
-4 new columns will be added:
+will produce `my_address_file_geocoded_roads_0.2.0_400m_buffer.csv` with added columns:
 
-* `dist_to_1100`
-* `dist_to_1200`
-* `length_1100`
-* `length_1200`
+- **`dist_to_1100`**: distance (meters) to the nearest S1100 road
+- **`dist_to_1200`**: distance (meters) to the nearest S1200 road
+- **`length_1100`**: length (meters) of S1100 roads within a 400 m buffer
+- **`length_1200`**: length (meters) of S1200 roads within a 400 m buffer
 
-## geomarker methods
+### Optional Argument
 
-### Primary (S1100) and Secondary (S1200) Roadways
+The default buffer radius for length of roads is 400 meters, but can be changed by supplying an optional argument to the degauss command. For example, 
 
-The U.S. Census Bureau defines primary (S1100) roadways as "generally divided, limited-access highways within the Federal interstate highway system or under state management" and "distinguished by the presence of interchanges and are accessible by ramps and may include some toll highways". The map below shows all features defined as "S1100" in the MAF/TIGER database. 
+```sh
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.0 my_address_file_geocoded.csv 800
+```
+
+will produce `my_address_file_geocoded_roads_0.2.0_800m_buffer.csv`, and `length_1100` and `length_1200` will be the lengths within an 800 m buffer.
+
+## Geomarker Methods
+
+This container uses 2018 S1100 and S1200 roads, as defined by the U.S. Census Bureau.
+
+| Road Type | Road Type Code | General Description | U.S. Census Definition | 
+|:---:|:----:|:----:| :----: |
+| Primary | S1100 | interstates and freeways | generally divided, limited-access highways within the Federal interstate highway system or under state management; distinguished by the presence of interchanges and are accessible by ramps and may include some toll highways | 
+| Secondary | S1200 | arterial roads and state highways | main arteries, usually in the U.S. highway, state highway, or county highway system; have one or more lanes of traffic in each direction, may or may not be divided, and usually have at-grade intersections with many other roads and driveways | 
+
+The map below shows all features defined as "S1100" in the MAF/TIGER database.
 
 ![](figs/us_primary_roads.png)
 
-Secondary (S1200) roads are described as "main arteries, usually in the U.S. highway, state highway, or county highway system" and "have one or more lanes of traffic in each direction, may or may not be divided, and usually have at-grade intersections with many other roads and driveways".
+## Geomarker Data
 
-This container returns the distance to the nearest primary road and the distance to the nearest secondary road for each geocoded address, as well as the length of primary roads and the total length of secondary roads within a buffer (defaults to 400 m) around each address. 
+- 2018 S1100 roadway shapefiles were downloaded using [`tigris`](https://github.com/walkerke/tigris). 
 
-## geomarker data
+- 2018 S1200 roadway shapefiles were downloaded directed from the [U.S. Census Bureau](ftp://ftp2.census.gov/geo/tiger/TIGER2018/ROADS/) using the bash script in this repository.
 
-S1100 roadway shapefiles were downloaded from [tigris](https://github.com/walkerke/tigris). S1200 roadway shapefiles were downloaded directed from the [U.S. Census Bureau](ftp://ftp2.census.gov/geo/tiger/TIGER2018/ROADS/) using the bash script in this repository.
+- Road shapefiles are stored at [`s3://geomarker/geometries/roads1100_sf_5072.rds`](https://geomarker.s3.us-east-2.amazonaws.com/geomarker/geometries/roads1100_sf_5072.rds) and [`s3://geomarker/geometries/roads1200_sf_5072.rds`](https://geomarker.s3.us-east-2.amazonaws.com/geomarker/geometries/roads1200_sf_5072.rds)
 
-Download the roadway shapefiles needed to build this container:
+## DeGAUSS Details
 
-[https://s3.amazonaws.com/geomarker/roads/roads1100_sp_5072.rds](https://geomarker.s3.us-east-2.amazonaws.com/roads/roads1100_sp_5072.rds)
-
-[https://s3.amazonaws.com/geomarker/roads/roads1200_sp_5072.rds](https://geomarker.s3.us-east-2.amazonaws.com/roads/roads1200_sp_5072.rds)
-
-
-## DeGAUSS details
-
-For detailed documentation on DeGAUSS, including general usage and installation, please see the [DeGAUSS README](https://github.com/degauss-org/DeGAUSS).
-
+For detailed documentation on DeGAUSS, including general usage and installation, please see the [DeGAUSS homepage](https://degauss.org).
