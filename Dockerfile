@@ -1,26 +1,39 @@
-FROM rocker/r-ver:3.6.1
+FROM rocker/r-ver:4.0.5
 
-# install a newer-ish version of renv, but the specific version we want will be restored from the renv lockfile
-ENV RENV_VERSION 0.8.3-81
-RUN R --quiet -e "source('https://install-github.me/rstudio/renv@${RENV_VERSION}')"
+# DeGAUSS container metadata
+ENV degauss_name="roads"
+ENV degauss_version="0.2.0"
+ENV degauss_description="proximity and length of major roads"
+ENV degauss_argument="buffer radius in meters [default: 400]"
+
+# add OCI labels based on environment variables too
+LABEL "org.degauss.name"="${degauss_name}"
+LABEL "org.degauss.version"="${degauss_version}"
+LABEL "org.degauss.description"="${degauss_description}"
+LABEL "org.degauss.argument"="${degauss_argument}"
+
+RUN R --quiet -e "install.packages('remotes', repos = c(CRAN = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest'))"
+
+RUN R --quiet -e "remotes::install_github('rstudio/renv@0.15.2')"
 
 WORKDIR /app
 
 RUN apt-get update \
-  && apt-get install -yqq --no-install-recommends \
-  libgdal-dev=2.1.2+dfsg-5 \
-  libgeos-dev=3.5.1-3 \
-  libudunits2-dev=2.2.20-1+b1 \
-  libproj-dev=4.9.3-1 \
-  && apt-get clean
+    && apt-get install -yqq --no-install-recommends \
+    libgdal-dev \
+    libgeos-dev \
+    libudunits2-dev \
+    libproj-dev \
+    && apt-get clean
 
 COPY renv.lock .
-RUN R --quiet -e "renv::restore()"
 
-COPY roads1100_sp_5072.rds .
-COPY roads1200_sp_5072.rds .
-COPY _roadway_distance_and_length.R .
+RUN R --quiet -e "renv::restore(repos = c(CRAN = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest'))"
+
+ADD https://geomarker.s3.us-east-2.amazonaws.com/geometries/roads1100_sf_5072.rds roads1100_sf_5072.rds
+ADD https://geomarker.s3.us-east-2.amazonaws.com/geometries/roads1200_sf_5072.rds roads1200_sf_5072.rds
+COPY entrypoint.R .
 
 WORKDIR /tmp
 
-ENTRYPOINT ["/app/_roadway_distance_and_length.R"]
+ENTRYPOINT ["/app/entrypoint.R"]
