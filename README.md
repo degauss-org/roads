@@ -2,19 +2,18 @@
 
 > DeGAUSS container that calculates proximity and length of nearby major roadways
 
-[![Docker Build Status](https://img.shields.io/docker/automated/degauss/roads)](https://hub.docker.com/repository/docker/degauss/roads/tags)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
+[![GitHub Latest Tag](https://img.shields.io/github/v/tag/degauss-org/roads)](https://github.com/degauss-org/roads/releases)
 
 ## DeGAUSS example call
 
 ```sh
-docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv 
+docker run --rm -v "$PWD":/tmp ghcr.io/degauss-org/roads:0.1 my_address_file_geocoded.csv 
 ```
 
-Optionally, change the default buffer radius:
+Optionally, change the default (400 m) buffer radius:
 
 ```sh
-docker run --rm -v "$PWD":/tmp degauss/roads:0.1 my_address_file_geocoded.csv --buffer_radius 500
+docker run --rm -v "$PWD":/tmp ghcr.io/degauss-org/roads:0.1 my_address_file_geocoded.csv --buffer_radius 500
 ```
 
 4 new columns will be added:
