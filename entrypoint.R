@@ -2,6 +2,8 @@
 
 dht::greeting()
 
+dht::check_ram(4)
+
 ## load libraries without messages or warnings
 withr::with_message_sink("/dev/null", library(dplyr))
 withr::with_message_sink("/dev/null", library(tidyr))
@@ -15,14 +17,14 @@ doc <- "
 
 opt <- docopt::docopt(doc)
 
-if (is.null(opt$buffer_radius)) {
-  opt$buffer_radius <- 400
-}
-
 ## for interactive testing
 ## opt <- docopt::docopt(doc, args = c('test/my_address_file_geocoded.csv', 400))
 ## roads1100 <- readRDS("roads1100_sf_5072.rds")
 ## roads1200 <- readRDS("roads1200_sf_5072.rds")
+
+if (is.null(opt$buffer_radius)) {
+  opt$buffer_radius <- 400
+}
 
 message("reading input file...")
 d <- dht::read_lat_lon_csv(opt$filename, nest_df = T, sf = T, project_to_crs = 5072)
