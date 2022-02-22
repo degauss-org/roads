@@ -3,6 +3,4 @@
 
 # except what we need
 !/renv.lock
-!/_roadway_distance_and_length.R
-!/roads1100_sp_5072.rds
-!/roads1200_sp_5072.rds
+!/entrypoint.R
