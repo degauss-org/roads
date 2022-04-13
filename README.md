@@ -8,10 +8,10 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon`, then the [DeGAUSS command](https://degauss.org/using_degauss.html#DeGAUSS_Commands):
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.0 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.1 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_roads_0.2.0_400m_buffer.csv` with added columns:
+will produce `my_address_file_geocoded_roads_0.2.1_400m_buffer.csv` with added columns:
 
 - **`dist_to_1100`**: distance (meters) to the nearest S1100 road
 - **`dist_to_1200`**: distance (meters) to the nearest S1200 road
@@ -23,10 +23,10 @@ will produce `my_address_file_geocoded_roads_0.2.0_400m_buffer.csv` with added c
 The default buffer radius for length of roads is 400 meters, but can be changed by supplying an optional argument to the degauss command. For example, 
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.0 my_address_file_geocoded.csv 800
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.1 my_address_file_geocoded.csv 800
 ```
 
-will produce `my_address_file_geocoded_roads_0.2.0_800m_buffer.csv`, and `length_1100` and `length_1200` will be the lengths within an 800 m buffer.
+will produce `my_address_file_geocoded_roads_0.2.1_800m_buffer.csv`, and `length_1100` and `length_1200` will be the lengths within an 800 m buffer.
 
 ## Geomarker Methods
 
