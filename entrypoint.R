@@ -40,10 +40,16 @@ message("reading in S1200 roads data...")
 roads1200 <- readRDS("/app/roads1200_sf_5072.rds")
 
 message('finding distance to nearest S1100 road...')
-d_sf$dist_to_1100 <- purrr::map_dbl(1:nrow(d_sf), ~sf::st_distance(d_sf[.x,], roads1100) %>% which.min())
+nearest_index_1100 <- st_nearest_feature(d_sf, roads1100)
+d_sf$dist_to_1100 <- purrr::map2_dbl(1:nrow(d_sf),
+                                     nearest_index_1100,
+                                     ~sf::st_distance(d_sf[.x,], roads1100[.y,]))
 
 message('finding distance to nearest S1200 road...')
-d_sf$dist_to_1200 <- purrr::map_dbl(1:nrow(d_sf), ~sf::st_distance(d_sf[.x,], roads1200) %>% which.min())
+nearest_index_1200 <- st_nearest_feature(d_sf, roads1200)
+d_sf$dist_to_1200 <- purrr::map2_dbl(1:nrow(d_sf),
+                                     nearest_index_1200,
+                                     ~sf::st_distance(d_sf[.x,], roads1200[.y,]))
 
 message("creating buffers...")
 buffers <- st_buffer(d_sf, dist = as.numeric(opt$buffer_radius), nQuadSegs = 1000)
