@@ -43,13 +43,13 @@ message('finding distance to nearest S1100 road...')
 nearest_index_1100 <- st_nearest_feature(d_sf, roads1100)
 d_sf$dist_to_1100 <- purrr::map2_dbl(1:nrow(d_sf),
                                      nearest_index_1100,
-                                     ~sf::st_distance(d_sf[.x,], roads1100[.y,]))
+                                     ~round(sf::st_distance(d_sf[.x,], roads1100[.y,]), 1))
 
 message('finding distance to nearest S1200 road...')
 nearest_index_1200 <- st_nearest_feature(d_sf, roads1200)
 d_sf$dist_to_1200 <- purrr::map2_dbl(1:nrow(d_sf),
                                      nearest_index_1200,
-                                     ~sf::st_distance(d_sf[.x,], roads1200[.y,]))
+                                     ~round(sf::st_distance(d_sf[.x,], roads1200[.y,]), 1))
 
 message("creating buffers...")
 buffers <- st_buffer(d_sf, dist = as.numeric(opt$buffer_radius), nQuadSegs = 1000)
@@ -66,7 +66,7 @@ get_line_length <- function(roads) {
   b_split <- split(b, b$road_length)
 
   # for buffers with any length, find that length
-  if(length(b_split) > 1) {
+  if(!is.null(b_split$`1`)) {
     roads_intersects <- purrr::map(b_split$`1`$road_index, ~roads[.x,])
     roads_intersection <- purrr::map2(1:nrow(b_split$`1`),
                                       roads_intersects,

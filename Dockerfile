@@ -2,7 +2,7 @@ FROM rocker/r-ver:4.0.5
 
 # DeGAUSS container metadata
 ENV degauss_name="roads"
-ENV degauss_version="0.2.1"
+ENV degauss_version="0.2.2"
 ENV degauss_description="proximity and length of major roads"
 ENV degauss_argument="buffer radius in meters [default: 400]"
 
