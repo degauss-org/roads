@@ -8,10 +8,10 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon`, then the [DeGAUSS command](https://degauss.org/using_degauss.html#DeGAUSS_Commands):
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.2 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/roads:0.2.3 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_roads_0.2.2_400m_buffer.csv` with added columns:
+will produce `my_address_file_geocoded_roads_0.2.3_400m_buffer.csv` with added columns:
 
 - **`dist_to_1100`**: distance (meters) to the nearest S1100 road
 - **`dist_to_1200`**: distance (meters) to the nearest S1200 road
@@ -47,7 +47,7 @@ The map below shows all features defined as "S1100" in the MAF/TIGER database.
 
 - 2018 S1200 roadway shapefiles were downloaded directed from the [U.S. Census Bureau](ftp://ftp2.census.gov/geo/tiger/TIGER2018/ROADS/) using the bash script in this repository.
 
-- Road shapefiles are stored at [`s3://geomarker/geometries/roads1100_sf_5072.rds`](https://geomarker.s3.us-east-2.amazonaws.com/geomarker/geometries/roads1100_sf_5072.rds) and [`s3://geomarker/geometries/roads1200_sf_5072.rds`](https://geomarker.s3.us-east-2.amazonaws.com/geomarker/geometries/roads1200_sf_5072.rds)
+- Road shapefiles are stored as versioned GitHub release assets
 
 ## DeGAUSS Details
 
